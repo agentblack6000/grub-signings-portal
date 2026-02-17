@@ -1,0 +1,23 @@
+services:
+  db-hopp:
+    context: .
+    image: postgres:18
+    container_name: db-hopp
+    env_file:
+      - .env.hopp
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    restart: always
+
+  hoppscotch:
+    context: .
+    image: hoppscotch/hoppscotch
+    container_name: hoppscotch
+    depends_on:
+      - db-hopp
+    ports:
+      - "127.0.0.1:3000:3000" # frontend
+      - "127.0.0.1:3170:3170" # backend
+    env_file:
+      - .env.hopp
+    restart: always
