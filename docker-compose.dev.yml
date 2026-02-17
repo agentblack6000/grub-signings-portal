@@ -1,6 +1,5 @@
 services:
   db-hopp:
-    context: .
     image: postgres:18
     container_name: db-hopp
     env_file:
@@ -10,7 +9,6 @@ services:
     restart: always
 
   hoppscotch:
-    context: .
     image: hoppscotch/hoppscotch
     container_name: hoppscotch
     depends_on:
