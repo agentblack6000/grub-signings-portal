@@ -1,10 +1,11 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 
 
 # TODO: Review changes
 
-class Student(AbstractUser):
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     dues = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     def __str__(self):
         return self.username
