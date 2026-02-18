@@ -2,19 +2,18 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# TODO: Review changes
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    dues = models.DecimalField(default=0, max_digits=8, decimal_places=2) # type: ignore pylance error it should still work
+    dues = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+
     def __str__(self):
         return self.user.username
 
 class Grub(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    price_veg = models.DecimalField(null=True, default=0, max_digits=8, decimal_places=2) # type: ignore pylance error it should still work
-    price_nonveg = models.DecimalField(null=True, default=0, max_digits=8, decimal_places=2) # type: ignore pylance error it should still work
+    price_veg = models.DecimalField(null=True, default=0, max_digits=8, decimal_places=2)
+    price_nonveg = models.DecimalField(null=True, default=0, max_digits=8, decimal_places=2)
 
     def __str__(self):
         return self.name

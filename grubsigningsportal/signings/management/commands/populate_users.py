@@ -1,9 +1,33 @@
+"""
+Populate some users in the database
+"""
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
+from signings.models import Student
+
+from decimal import Decimal
+import csv
+
+
 class Command(BaseCommand):
-    # TODO: Create some base users and load them based on the model implemented for students
-    # TODO: use user.objects.create_user() instead of just create() so password is hashed automatically
+    help = "Populate some users in the database"
     
     def handle(self, *args, **options):
-        pass
+        with open("userdata.csv", "r") as user_data_file:
+            reader = csv.DictReader(user_data_file)
+
+            for row in reader:
+                user = User.objects.create_user(
+                    username=row["username"],
+                    password=row["password"],
+                    email=row["email"],
+                )
+
+                student = Student.objects.create(
+                    user=user,
+                    dues=Decimal("0.00"),
+                )
+
+                student.save()
     
