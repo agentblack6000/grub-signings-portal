@@ -1,11 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from decimal import Decimal
+
 
 # TODO: Review changes
 
 class Student(AbstractUser):
-    dues = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    dues = models.DecimalField(default=0, max_digits=8, decimal_places=2, min_value=Decimal("0.00"))
     def __str__(self):
         return self.username
 
