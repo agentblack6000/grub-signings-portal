@@ -12,3 +12,4 @@
 1. [DRF Docs](https://www.django-rest-framework.org/)
 2. [Hoppscotch setup docs](https://docs.hoppscotch.io/documentation/self-host/community-edition/install-and-build)
 3. [Database logging](https://www.freecodecamp.org/news/how-to-export-your-database-in-django/)
+4. [Django custom authentication docs](https://docs.djangoproject.com/en/5.2/topics/auth/customizing/#substituting-a-custom-user-model)
