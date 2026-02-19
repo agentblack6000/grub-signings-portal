@@ -1,7 +1,7 @@
 """
 views.py
 """
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -19,7 +19,7 @@ from .serializers import (
     UserLoginTokenObtainPairSerializer,
 )
 
-
+from .helper import generate_hash, verify_hash
 # TODO: Add business logic for views, add/remove views if needed
 
 # Based on the permission classes, the admin must assign user groups from the admin panel
@@ -100,4 +100,25 @@ class CancelTicket(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class ScanTicket(APIView):
+    """
+    Scans ticket and updates status
+    """
+    permission_classes = [(IsManager | IsAdmin)]
+    
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
 
+    def post(self, data, request):
+        if not verify_hash(data):
+            return Response(status=status.HTTP_403_FORBIDDEN) # this means data from qr is either tampered or expired
+        else:
+            user = data.split(":")[0]
+            try:
+                ticket = Ticket.objects.get(user = user, status=Ticket.Status.ACTIVE, grub = request.grub) # assume grub is known and attached by manager in the request
+            except Ticket.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND) # user doesn't have a valid ticket
+            else:
+                ticket.status = Ticket.Status.USED
+                ticket.save()
+                return Response(status=status.HTTP_200_OK) # all ok ticket scanned and marked
