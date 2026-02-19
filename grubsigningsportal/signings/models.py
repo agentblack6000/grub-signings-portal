@@ -12,8 +12,8 @@ class Student(models.Model):
 class Grub(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    price_veg = models.DecimalField(null=True, default=0, max_digits=8, decimal_places=2)
-    price_nonveg = models.DecimalField(null=True, default=0, max_digits=8, decimal_places=2)
+    price_veg = models.DecimalField(null=False, max_digits=8, decimal_places=2)
+    price_nonveg = models.DecimalField(null=False, max_digits=8, decimal_places=2)
 
     def __str__(self):
         return self.name
