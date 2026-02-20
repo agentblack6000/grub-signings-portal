@@ -30,4 +30,3 @@ class Command(BaseCommand):
                 )
 
                 student.save()
-    
