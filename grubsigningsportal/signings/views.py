@@ -117,12 +117,13 @@ class ScanTicket(APIView):
     permission_classes = [(IsManager | IsAdmin)]
 
     def get(self, request):
-        return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, data, request):
+        # TODO: Rewrite to access data from URL
         if not verify_hash(data):
             return Response(
-                status=status.HTTP_403_FORBIDDEN
+                status=status.HTTP_400_BAD_REQUEST
             )  # this means data from qr is either tampered or expired
         else:
             user = data.split(":")[0]
