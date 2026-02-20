@@ -140,3 +140,36 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "sql_statement": {
+            "format": "{sql}",
+            "style": "{",
+        },
+        "database_query_info": {
+            "format": "{duration} {params} {alias}",
+            "style": "{",
+        },
+    },
+    # "filters": {
+    # },
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "general.log",
+            "filters": [],
+            "level": "DEBUG",
+            "formatter": "sql_statement",
+        },
+    },
+    "loggers": {
+        "django.db.backends":
+        {
+            "handlers": ["file"],
+            "level": "DEBUG",
+        }
+    },
+}
