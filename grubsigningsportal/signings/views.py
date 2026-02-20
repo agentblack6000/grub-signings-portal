@@ -3,6 +3,7 @@ views.py
 """
 from django.shortcuts import render, get_object_or_404
 
+from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,6 +18,7 @@ from .models import (
 from .permissions import IsStudent, IsManager, IsDVMUser, IsAdmin
 from .serializers import (
     UserLoginTokenObtainPairSerializer,
+    CreateGrubSerializer
 )
 
 from .helper import generate_hash, verify_hash
@@ -38,19 +40,14 @@ class UserLoginView(TokenObtainPairView):
     serializer_class = UserLoginTokenObtainPairSerializer
 
 
-class CreateGrub(APIView):
+class CreateGrub(generics.CreateAPIView):
     """
     Sets up grub metadata
     """
 
     permission_classes = [(IsDVMUser | IsAdmin)]
-
-    def get(self, request):
-        return Response(status=status.HTTP_200_OK)
-
-    def post(self, request):
-        return Response(status=status.HTTP_200_OK)
-
+    serializer_class = CreateGrubSerializer
+    
 
 class ViewDataAnalytics(APIView):
     """
