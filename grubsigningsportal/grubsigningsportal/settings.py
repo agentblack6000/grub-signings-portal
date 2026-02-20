@@ -142,6 +142,44 @@ REST_FRAMEWORK = {
     ],
 }
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "sql_statement": {
+            "format": "{sql}",
+            "style": "{",
+        },
+        "database_query_info": {
+            "format": "{duration} {params}",
+            "style": "{",
+        },
+    },
+    # "filters": {
+    # },
+    "handlers": {
+        "sql_file": {
+            "class": "logging.FileHandler",
+            "filename": "logs/sql_queries.log",
+            "filters": [],
+            "level": "DEBUG",
+            "formatter": "sql_statement",
+        },
+        "query_info_file": {
+            "class": "logging.FileHandler",
+            "filename": "logs/query_information.log",
+            "filters": [],
+            "level": "DEBUG",
+            "formatter": "database_query_info",
+        },
+    },
+    "loggers": {
+        "django.db.backends":
+        {
+            "handlers": ["sql_file", "query_info_file"],
+            "level": "DEBUG",
+        }
+    },
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
 }
