@@ -1,7 +1,7 @@
 """
 Populate some users in the database
 """
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
 
 from signings.models import Student
@@ -16,6 +16,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with open("userdata.csv", "r") as user_data_file:
             reader = csv.DictReader(user_data_file)
+            student_group = Group.objects.get(name="student")
 
             for row in reader:
                 user = User.objects.create_user(
@@ -29,5 +30,6 @@ class Command(BaseCommand):
                     dues=Decimal("0.00"),
                 )
 
+                student.user.groups.add(student_group)
                 student.save()
     
