@@ -8,4 +8,6 @@ urlpatterns = [
     path("create-ticket/", view=CreateTicket.as_view(), name="create-ticket"),
     path("display-user/", view=DisplayUser.as_view(), name="display-user"),
     path("cancel-ticket/", view=CancelTicket.as_view(), name="cancel-ticket"),
+    path("scan-qr/<str:message>/", view=ScanQR.as_view(), name="scan-ticket"),
+    path("get-qr/<int:grub_id>/", view=GetQR.as_view(), name="get-qr"),
 ]

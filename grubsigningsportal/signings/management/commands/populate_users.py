@@ -32,4 +32,3 @@ class Command(BaseCommand):
 
                 student.user.groups.add(student_group)
                 student.save()
-    
