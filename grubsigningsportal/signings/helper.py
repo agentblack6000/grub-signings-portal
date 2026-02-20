@@ -41,17 +41,17 @@ def verify_hash(data: str) -> bool:
         return False
 
 
-if __name__ == "__main__":
-    """
-    testing expiry and generation
-    """
-    print(generate_hash(5760))
-    while True:
-        a = generate_hash(5760)
-        start = round(time.time())
-        while True:
-            time.sleep(1)
-            if not verify_hash(a):
-                end = round(time.time())
-                print(f"Hash changed after {end-start} seconds")
-                break
+# if __name__ == "__main__":
+#     """
+#     testing expiry and generation
+#     """
+#     print(generate_hash(5760))
+#     while True:
+#         a = generate_hash(5760)
+#         start = round(time.time())
+#         while True:
+#             time.sleep(1)
+#             if not verify_hash(a):
+#                 end = round(time.time())
+#                 print(f"Hash changed after {end-start} seconds")
+#                 break
