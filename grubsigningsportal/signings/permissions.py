@@ -4,7 +4,7 @@ from rest_framework.permissions import BasePermission
 class IsStudent(BasePermission):
     def has_permission(self, request, view):
         return (
-            request.user.is_authenticated 
+            request.user.is_authenticated
             and request.user.groups.filter(name="student").exists()
         )
 
@@ -12,7 +12,7 @@ class IsStudent(BasePermission):
 class IsManager(BasePermission):
     def has_permission(self, request, view):
         return (
-            request.user.is_authenticated 
+            request.user.is_authenticated
             and request.user.groups.filter(name="manager").exists()
         )
 
@@ -20,15 +20,11 @@ class IsManager(BasePermission):
 class IsDVMUser(BasePermission):
     def has_permission(self, request, view):
         return (
-            request.user.is_authenticated 
+            request.user.is_authenticated
             and request.user.groups.filter(name="dvm").exists()
         )
 
 
 class IsAdmin(BasePermission):
     def has_permission(self, request, view):
-        return (
-            request.user.is_staff
-            or request.user.is_superuser
-        )
-
+        return request.user.is_staff or request.user.is_superuser
