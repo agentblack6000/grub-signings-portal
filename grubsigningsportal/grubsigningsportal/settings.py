@@ -150,25 +150,32 @@ LOGGING = {
             "style": "{",
         },
         "database_query_info": {
-            "format": "{duration} {params} {alias}",
+            "format": "{duration} {params}",
             "style": "{",
         },
     },
     # "filters": {
     # },
     "handlers": {
-        "file": {
+        "sql_file": {
             "class": "logging.FileHandler",
-            "filename": "general.log",
+            "filename": "logs/sql_queries.log",
             "filters": [],
             "level": "DEBUG",
             "formatter": "sql_statement",
+        },
+        "query_info_file": {
+            "class": "logging.FileHandler",
+            "filename": "logs/query_information.log",
+            "filters": [],
+            "level": "DEBUG",
+            "formatter": "database_query_info",
         },
     },
     "loggers": {
         "django.db.backends":
         {
-            "handlers": ["file"],
+            "handlers": ["sql_file", "query_info_file"],
             "level": "DEBUG",
         }
     },
